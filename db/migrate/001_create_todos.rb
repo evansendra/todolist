@@ -3,7 +3,7 @@ Sequel.migration do
     create_table :todos do
       primary_key :id
       String :title, :null => false
-      String :author, :null => false
+      String :author
       Boolean :is_complete, :null => false
       DateTime :created_at, :null => false
       DateTime :updated_at, :null => false
