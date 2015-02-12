@@ -1,6 +1,4 @@
 Sequel.migration do
-	Sequel::Model.plugin :timestamps
-
   up do
     create_table :todos do
       primary_key :id
