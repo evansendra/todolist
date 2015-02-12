@@ -1,3 +1,3 @@
 class Todo < Sequel::Model
-	plugin :timestamps
+	plugin :timestamps, :update_on_create => true
 end
