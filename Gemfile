@@ -9,6 +9,7 @@ source 'https://rubygems.org'
 
 # Optional JSON codec (faster performance)
 # gem 'oj'
+gem 'json'
 
 # Project requirements
 gem 'rake'
@@ -25,6 +26,9 @@ gem 'rack-test', :require => 'rack/test', :group => 'test'
 
 # Padrino Stable Gem
 gem 'padrino', '0.12.4'
+
+# css extension
+gem 'sass', '~> 3.4.11'
 
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'

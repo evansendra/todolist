@@ -1,5 +1,6 @@
 module Todolist
   class App < Padrino::Application
+  	register ScssInitializer
     register Padrino::Rendering
     register Padrino::Mailer
     register Padrino::Helpers
@@ -7,7 +8,7 @@ module Todolist
     enable :sessions
 
     get '/' do
-      "hello world"
+      redirect :todos
     end
 
     get :about, :map => '/about_us' do

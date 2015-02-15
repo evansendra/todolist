@@ -75,6 +75,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.1)
+    sass (3.4.12)
     sequel (4.19.0)
     sinatra (1.4.5)
       rack (~> 1.4)
@@ -101,10 +102,12 @@ PLATFORMS
 
 DEPENDENCIES
   haml
+  json
   padrino (= 0.12.4)
   rack-test
   rake
   rspec
+  sass (~> 3.4.11)
   sequel
   slim
   sqlite3

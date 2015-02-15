@@ -1,0 +1,19 @@
+body {
+  background: #eee;
+  width: 920px;
+  margin: 0 auto;
+  text-align: center; }
+
+#header, #footer {
+  text-align: center; }
+
+.todo-list {
+  margin: 10px 0; }
+
+.todo {
+  padding: 5px; }
+
+.completed {
+  text-decoration: line-through; }
+
+/*# sourceMappingURL=application.css.map */
