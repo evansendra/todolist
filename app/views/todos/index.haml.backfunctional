@@ -1,0 +1,31 @@
+- if @errors
+	#errors 
+		The following errors must be corrected:	
+		- @errors.each do |key, err|
+			.err_key
+				= key.to_s + "..." 
+				- err.each do |e|
+					.err_val= e
+
+
+= form_tag url_for( :todos, :index ), :method => 'post' do
+	%div
+		= label_tag :title
+		= text_field_tag :title, :value => params[:title]
+	%div
+		= label_tag :author
+		= text_field_tag :author, :value => params[:author]	
+	= submit_tag "New Task"
+
+%table 
+	%tr
+		%th Title
+		%th Completed
+		%th Author
+		%th Created
+		- @todos.each_with_index do |t, i|
+			%tr
+				%td= t.title
+				%td= t.is_complete
+				%td= t.author
+				%td= @todo_dates[i]

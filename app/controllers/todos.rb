@@ -33,7 +33,7 @@ Todolist::App.controllers :todos do
   	render 'todos/index'
   end
 
-  get :api, :map => '/api/todos/' do
+  get :api, :map => '/api/todo.json' do
   	content_type :json
   	todolist = get_todos.map do |t|
   		{ :id => t.id, :title => t.title, :author => t.author,

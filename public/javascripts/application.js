@@ -2,7 +2,7 @@ Falcon.baseTemplateUrl = "/";
 Falcon.baseApiUrl = "/api";
 
 var Todo = Falcon.Model.extend({
-	url: 'todo',
+	url: 'todo.json',
 
 	observables: {
 		'text': '',
@@ -16,7 +16,7 @@ var Todos = Falcon.Collection.extend({
 });
 
 var TodoListView = Falcon.View.extend({
-	url: '#todo_list_tmpl',
+	url: 'todos',
 
 	defaults: {
 		'todos': function () { return new Todos; }
@@ -26,13 +26,16 @@ var TodoListView = Falcon.View.extend({
 		'new_todo_text': ''
 	},
 
-	initialize: function() {},
+	initialize: function() 
+	{
+    this.todos.fetch(); 
+	},
 
 	addTodo: function ()
 	{
 		var todo = new Todo({ text: this.new_todo_text() });
 
-		this.todos.append( todo );
+		this.todos.create( todo );
 
 		this.new_todo_text('');
 	},
@@ -41,18 +44,19 @@ var TodoListView = Falcon.View.extend({
 	{
 		todo.set('is_editing', !todo.is_editing());
 		todo.set('text', todo.text());
-		console.log(todo.is_editing());
+		todo.save();
 	},
 
 	removeTodo: function ( todo )
 	{
-		this.todos.remove( todo );
+		this.todos.destroy( todo );
 	},
 
 	toggleTodo: function ( todo )
 	{
 		todo.set('is_complete', 
 			!todo.is_complete());
+		todo.save();
 	}
 });
 
