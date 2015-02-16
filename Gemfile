@@ -30,13 +30,7 @@ gem 'padrino', '0.12.4'
 gem 'sass', '~> 3.4.11'
 
 # database for dev/test & production
-group :development, :test do
-	gem 'sqlite3'
-end
-
-group :production do
-	gem 'pg'
-end
+gem 'pg'
 
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'
