@@ -1,59 +1,67 @@
-// Falcon.baseTemplateUrl = "/";
-// Falcon.baseApiUrl = "/api";
+Falcon.baseTemplateUrl = "/";
+Falcon.baseApiUrl = "/api";
 
-// var Todo = Falcon.Model.extend({
-// 	url: 'todo',
+var Todo = Falcon.Model.extend({
+	url: 'todo',
 
-// 	observables: {
-// 		'text': '',
-// 		'is_complete': false
-// 	}
-// });
+	observables: {
+		'text': '',
+		'is_complete': false,
+		'is_editing': false
+	}
+});
 
-// var Todos = Falcon.Collection.extend({
-// 	model: Todo
-// });
+var Todos = Falcon.Collection.extend({
+	model: Todo
+});
 
-// var TodoListView = Falcon.View.extend({
-// 	url: '#todo_list_tmpl',
+var TodoListView = Falcon.View.extend({
+	url: '#todo_list_tmpl',
 
-// 	defaults: {
-// 		'todos': function () { return new Todos; }
-// 	},
+	defaults: {
+		'todos': function () { return new Todos; }
+	},
 
-// 	observables: {
-// 		'new_todo_text': ''
-// 	},
+	observables: {
+		'new_todo_text': ''
+	},
 
-// 	initialize: function() {},
+	initialize: function() {},
 
-// 	addTodo: function ()
-// 	{
-// 		var todo = new Todo({ text: this.new_todo_text() });
+	addTodo: function ()
+	{
+		var todo = new Todo({ text: this.new_todo_text() });
 
-// 		this.todos.append( todo );
+		this.todos.append( todo );
 
-// 		this.new_todo_text('');
-// 	},
+		this.new_todo_text('');
+	},
 
-// 	removeTodo: function ( todo )
-// 	{
-// 		this.todos.remove( todo );
-// 	},
+	editTodo: function ( todo )
+	{
+		todo.set('is_editing', !todo.is_editing());
+		todo.set('text', todo.text());
+		console.log(todo.is_editing());
+	},
 
-// 	toggleTodo: function ( todo )
-// 	{
-// 		todo.set('is_complete', 
-// 			!todo.is_complete());
-// 	}
-// });
+	removeTodo: function ( todo )
+	{
+		this.todos.remove( todo );
+	},
 
-// view = new TodoListView;
+	toggleTodo: function ( todo )
+	{
+		todo.set('is_complete', 
+			!todo.is_complete());
+	}
+});
 
-// Falcon.apply(view, '#application');
+view = new TodoListView;
 
-// view.todos.append([
-// 	{'text': 'First'},
-// 	{'text': 'Second'},
-// 	{'text': 'Third'}
-// ]);
+Falcon.apply(view, '#application');
+
+view.todos.append([
+	{'text': 'First'},
+	{'text': 'Second'},
+	{'text': 'Third'}
+]);
