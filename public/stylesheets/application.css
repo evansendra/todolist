@@ -5,7 +5,10 @@ body {
   text-align: center; }
 
 #header, #footer {
-  text-align: center; }
+  margin: 10px; }
+
+#footer {
+  color: #aaa; }
 
 .todo-list {
   margin: 10px 0; }
@@ -15,5 +18,9 @@ body {
 
 .completed {
   text-decoration: line-through; }
+
+table {
+  width: 50%;
+  margin: 0 auto; }
 
 /*# sourceMappingURL=application.css.map */

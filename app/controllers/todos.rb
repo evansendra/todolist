@@ -2,10 +2,7 @@ Todolist::App.controllers :todos do
   
   define_method :get_todos do
 		@todos = Todo.order(:created_at).reverse.all
-  end
-  
-  get :index do
-  	get_todos
+
 		@todo_dates = []
 		today = DateTime.now
 		@todos.each do |t|
@@ -18,8 +15,22 @@ Todolist::App.controllers :todos do
 			end
 			@todo_dates.append(t.created_at.strftime(format))
 		end
+  end
 
+  get :index do
+  	get_todos
 		render 'todos/index'
+  end
+
+  post :index do
+  	t = Todo.new({ :author => params[:author], :title => params[:title] })
+  	if t.valid?
+  		t.save
+  	else
+  		@errors = t.errors
+  	end
+  	get_todos
+  	render 'todos/index'
   end
 
   get :api, :map => '/api/todos/' do

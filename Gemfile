@@ -17,7 +17,6 @@ gem 'rake'
 # Component requirements
 gem 'haml'
 gem 'slim'
-gem 'sqlite3'
 gem 'sequel'
 
 # Test requirements
@@ -29,6 +28,15 @@ gem 'padrino', '0.12.4'
 
 # css extension
 gem 'sass', '~> 3.4.11'
+
+# database for dev/test & production
+group :development, :test do
+	gem 'sqlite3'
+end
+
+group :production do
+	gem 'pg'
+end
 
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'

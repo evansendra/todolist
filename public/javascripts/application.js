@@ -1,56 +1,59 @@
-var Todo = Falcon.Model.extend({
-	url: 'todo',
+// Falcon.baseTemplateUrl = "/";
+// Falcon.baseApiUrl = "/api";
 
-	observables: {
-		'text': '',
-		'is_complete': false
-	}
-});
+// var Todo = Falcon.Model.extend({
+// 	url: 'todo',
 
-var Todos = Falcon.Collection.extend({
-	model: Todo
-});
+// 	observables: {
+// 		'text': '',
+// 		'is_complete': false
+// 	}
+// });
 
-var TodoListView = Falcon.View.extend({
-	url: '#todo_list_tmpl',
+// var Todos = Falcon.Collection.extend({
+// 	model: Todo
+// });
 
-	defaults: {
-		'todos': function () { return new Todos; }
-	},
+// var TodoListView = Falcon.View.extend({
+// 	url: '#todo_list_tmpl',
 
-	observables: {
-		'new_todo_text': ''
-	},
+// 	defaults: {
+// 		'todos': function () { return new Todos; }
+// 	},
 
-	initialize: function() {},
+// 	observables: {
+// 		'new_todo_text': ''
+// 	},
 
-	addTodo: function ()
-	{
-		var todo = new Todo({ text: this.new_todo_text() });
+// 	initialize: function() {},
 
-		this.todos.append( todo );
+// 	addTodo: function ()
+// 	{
+// 		var todo = new Todo({ text: this.new_todo_text() });
 
-		this.new_todo_text('');
-	},
+// 		this.todos.append( todo );
 
-	removeTodo: function ( todo )
-	{
-		this.todos.remove( todo );
-	},
+// 		this.new_todo_text('');
+// 	},
 
-	toggleTodo: function ( todo )
-	{
-		todo.set('is_complete', 
-			!todo.is_complete());
-	}
-});
+// 	removeTodo: function ( todo )
+// 	{
+// 		this.todos.remove( todo );
+// 	},
 
-view = new TodoListView;
+// 	toggleTodo: function ( todo )
+// 	{
+// 		todo.set('is_complete', 
+// 			!todo.is_complete());
+// 	}
+// });
 
-Falcon.apply(view, '#application');
+// view = new TodoListView;
 
-view.todos.append([
-	{'text': 'First'},
-	{'text': 'Second'},
-	{'text': 'Third'}
-]);
+// Falcon.apply(view, '#application');
+
+// view.todos.append([
+// 	{'text': 'First'},
+// 	{'text': 'Second'},
+// 	{'text': 'Third'}
+// ]);
