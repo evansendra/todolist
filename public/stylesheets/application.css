@@ -1,13 +1,6 @@
-/*
-html 
-{
-	background: url(/images/kitten.png) no-repeat center center fixed;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-}
-*/
+/**
+ * general page and layout styles
+ */
 body {
   background: #eee;
   padding: 10px;
@@ -16,10 +9,13 @@ body {
   text-align: center;
   font-family: sans; }
 
-#header, #footer {
+header, footer {
   margin: 10px; }
 
-#footer {
+footer p {
+  color: #dedede;
+  transition: color 1.5s; }
+footer p:hover {
   color: #aaa; }
 
 .todo-list {

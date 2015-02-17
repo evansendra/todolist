@@ -5,7 +5,6 @@ var Todo = Falcon.Model.extend({
 
 	observables: {
 		'title': '',
-		'author': '',
 		'is_complete': false,
 		'is_editing': false
 	}
@@ -23,29 +22,37 @@ var TodoListView = Falcon.View.extend({
 	},
 
 	observables: {
-		'new_todo_text': ''
+		'new_todo_text': '',
+		'error_text': ''
 	},
 
 	initialize: function() 
 	{
     this.todos.fetch(); 
-    console.log(this.todos);
+	},
+
+	addTodo: function ()
+	{
+		if (this.new_todo_text() && this.new_todo_text().length > 0)
+		{
+			this.error_text('');
+
+			var todo = new Todo({ title: this.new_todo_text() });
+
+			this.todos.create( todo, {attributes: ["title"], fill_options: {method: 'prepend'}});
+
+			this.new_todo_text('');
+		}
+		else
+		{
+			this.error_text('Some words are needed.');
+		}
 	}
-
-	// addTodo: function ()
-	// {
-	// 	var todo = new Todo({ text: this.new_todo_text() });
-
-	// 	this.todos.create( todo );
-
-	// 	this.new_todo_text('');
-	// },
 
 	// editTodo: function ( todo )
 	// {
 	// 	todo.set('is_editing', !todo.is_editing());
 	// 	todo.set('text', todo.text());
-	//  todo.set('author', todo.author());
 	// 	todo.save();
 	// },
 
@@ -59,7 +66,8 @@ var TodoListView = Falcon.View.extend({
 	// 	todo.set('is_complete', 
 	// 		!todo.is_complete());
 	// 	todo.save();
-	// }
+	// },
+
 });
 
 /*
@@ -72,14 +80,15 @@ var LayoutView = Falcon.View.extend({
 	},
 
 	initialize: function() {
-		this.showTodosView = function() {
+		this.showTodosView = function() 
+		{
 			var tlv = new TodoListView();
 			tlv.todos.append([{'text': 'first', 'text': 'second'}]);
 			this.currentView(tlv);
 		};
 
 		this.showTodosView();
-	}
+	},
 });
 
 Falcon.apply(new LayoutView());

@@ -4,8 +4,7 @@ class Todo < Sequel::Model
 
 	def validate
 		super
-		validates_presence [:title, :author]
+		validates_presence [:title]
 		validates_max_length 255, :title
-		validates_max_length 255, :author
 	end
 end

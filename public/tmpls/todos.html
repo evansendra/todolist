@@ -1,3 +1,5 @@
+<div data-bind="text: $view.error_text" id="errors">
+</div>
 <div id="todos">
   <input data-bind="value: $view.new_todo_text" type="text"/>
   <button data-bind="click: $view.addTodo">Add</button>
@@ -7,11 +9,10 @@
       <span data-bind="css: {'completed': is_complete}">
         <!-- ko if: is_editing -->
         <input data-bind="value: title, event: { change: $view.editTodo }" type="text"></input>
-        <input data-bind="value: author, event: { change: $view.editTodo }" type="text"></input>
         <a data-bind="click:$view.editTodo" href="#">[Done]</a>
         <!-- /ko -->
         <!-- ko ifnot: is_editing -->
-        <span data-bind="text: title"></span> - <span data-bind="text: author" class="author"></span>
+        <span data-bind="text: title"></span>
         <a data-bind="click:$view.editTodo" href="#">[Edit]</a>
         <!-- /ko -->
       </span>

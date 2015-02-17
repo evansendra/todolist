@@ -6,10 +6,17 @@ Todolist::App.controllers :todos do
 		Todo.order(:created_at).reverse.all.to_json
 	end
 
-	# # create a new todo
-	# post :index do
-	# 	todo = Todo.from_json(request.body.read)
-	# end
+	# create a new todo
+	post :index do
+		todo = Todo.from_json(request.body.read)
+		begin
+			if (todo.save)
+				todo.to_json
+			end
+		rescue false
+			halt 500
+		end
+	end
 
 	# # edit a todo
 	# put :index, :with => :id do

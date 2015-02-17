@@ -1,14 +1,7 @@
 $font-stack: sans;
-/*
-html 
-{
-	background: url(/images/kitten.png) no-repeat center center fixed;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-}
-*/
+/**
+ * general page and layout styles
+ */
 body
 {
 	background: #eee;
@@ -19,15 +12,24 @@ body
 	font-family: $font-stack;
 }
 
-#header, #footer
+header, footer
 {
 	margin: 10px;
 }
 
-#footer
+footer
 {
-	color: #aaa;
+	p
+	{
+		color: #dedede;
+		transition: color 1.5s;
+	}
+	p:hover
+	{
+		color: #aaa;
+	}
 }
+
 
 .todo-list
 {
