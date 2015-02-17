@@ -33,15 +33,26 @@ var TodoListView = Falcon.View.extend({
 
 	addTodo: function ()
 	{
-		if (this.new_todo_text() && this.new_todo_text().length > 0)
+		var title = this.new_todo_text().trim();
+		if (title && title.length > 0
+				&& title.length < 255)
 		{
-			this.error_text('');
+			// ensure not already in list
+			var position = this.todos.indexOf(function(todo) {
+				return todo.get("title") === title; 
+			});
 
-			var todo = new Todo({ title: this.new_todo_text() });
-
-			this.todos.create( todo, {attributes: ["title"], fill_options: {method: 'prepend'}});
-
-			this.new_todo_text('');
+			if (position === -1)
+			{
+				this.error_text('');
+				var todo = new Todo({ title: title });
+				this.todos.create( todo, {attributes: ["title"], fill_options: {method: 'prepend'}});
+				this.new_todo_text('');
+			}
+			else
+			{
+				this.error_text('You haven\'t finished that one yet');
+			}
 		}
 		else
 		{
