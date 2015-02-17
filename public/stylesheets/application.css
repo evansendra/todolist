@@ -1,7 +1,20 @@
+/*
+html 
+{
+	background: url(/images/kitten.png) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+*/
 body {
+  background: #eee;
+  padding: 10px;
   width: 920px;
   margin: 0 auto;
-  text-align: center; }
+  text-align: center;
+  font-family: sans; }
 
 #header, #footer {
   margin: 10px; }
@@ -21,5 +34,8 @@ body {
 table {
   width: 50%;
   margin: 0 auto; }
+
+.author {
+  color: #666; }
 
 /*# sourceMappingURL=application.css.map */

@@ -1,26 +1,47 @@
 Todolist::App.controllers :todos do
-  
-  define_method :get_todos do
-		@todos = Todo.order(:created_at).reverse.all
 
-		@todo_dates = []
-		today = DateTime.now
-		@todos.each do |t|
-			d = t.created_at
-			format = "%m/%e/%y %I:%M%P"
-			if d.mday == today.mday && 
-				d.month == today.month && 
-				d.year == today.year
-				format = "%I:%M%P"
-			end
-			@todo_dates.append(t.created_at.strftime(format))
-		end
-  end
+	# get all todos
+	get :index do
+		content_type :json
+		Todo.order(:created_at).reverse.all.to_json
+	end
 
-  get :index do
-  	get_todos
-		render 'todos/index'
-  end
+	# # create a new todo
+	# post :index do
+	# 	todo = Todo.from_json(request.body.read)
+	# end
+
+	# # edit a todo
+	# put :index, :with => :id do
+	# end
+
+	# # remove a todo
+	# delete :index, :with => :id do
+	# 	todo = Todo[params[:id]
+	# end
+
+
+  # define_method :get_todos do
+		# @todos = Todo.order(:created_at).reverse.all
+
+		# @todo_dates = []
+		# today = DateTime.now
+		# @todos.each do |t|
+		# 	d = t.created_at
+		# 	format = "%m/%e/%y %I:%M%P"
+		# 	if d.mday == today.mday && 
+		# 		d.month == today.month && 
+		# 		d.year == today.year
+		# 		format = "%I:%M%P"
+		# 	end
+		# 	@todo_dates.append(t.created_at.strftime(format))
+		# end
+  # end
+
+  # get :index do
+  # 	get_todos
+		# render 'todos/index'
+  # end
 
   post :index do
   	t = Todo.new({ :author => params[:author], :title => params[:title] })
@@ -46,23 +67,4 @@ Todolist::App.controllers :todos do
 
   post :api, :map => '/api/todos' do
 	end
-
-	# get :index, :map => '/foo/bar' do
-  #   session[:foo] = 'bar'
-  #   render 'index'
-  # end
-
-  # get :sample, :map => '/sample/url', :provides => [:any, :js] do
-  #   case content_type
-  #     when :js then ...
-  #     else ...
-  # end
-
-  # get :foo, :with => :id do
-  #   'Maps to url '/foo/#{params[:id]}''
-  # end
-
-  # get '/example' do
-  #   'Hello world!'
-  # end
 end

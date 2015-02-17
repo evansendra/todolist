@@ -1,0 +1,22 @@
+<div id="todos">
+  <input data-bind="value: $view.new_todo_text" type="text"/>
+  <button data-bind="click: $view.addTodo">Add</button>
+  <div class="todo-list" data-bind="foreach: $view.todos">
+    <div class="todo">
+      <input type="checkbox" data-bind="checked:$view.toggleTodo"/>
+      <span data-bind="css: {'completed': is_complete}">
+        <!-- ko if: is_editing -->
+        <input data-bind="value: title, event: { change: $view.editTodo }" type="text"></input>
+        <input data-bind="value: author, event: { change: $view.editTodo }" type="text"></input>
+        <a data-bind="click:$view.editTodo" href="#">[Done]</a>
+        <!-- /ko -->
+        <!-- ko ifnot: is_editing -->
+        <span data-bind="text: title"></span> - <span data-bind="text: author" class="author"></span>
+        <a data-bind="click:$view.editTodo" href="#">[Edit]</a>
+        <!-- /ko -->
+      </span>
+      
+      <a data-bind="click:$view.removeTodo" href="#">[X]</a>
+    </div>
+  </div>
+</div>

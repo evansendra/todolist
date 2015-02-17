@@ -1,11 +1,11 @@
-Falcon.baseTemplateUrl = "/";
-Falcon.baseApiUrl = "/api";
+Falcon.baseTemplateUrl = "/tmpls";
 
 var Todo = Falcon.Model.extend({
-	url: 'todo.json',
+	url: 'todos',
 
 	observables: {
-		'text': '',
+		'title': '',
+		'author': '',
 		'is_complete': false,
 		'is_editing': false
 	}
@@ -16,7 +16,7 @@ var Todos = Falcon.Collection.extend({
 });
 
 var TodoListView = Falcon.View.extend({
-	url: 'todos',
+	url: 'todos.html',
 
 	defaults: {
 		'todos': function () { return new Todos; }
@@ -29,43 +29,57 @@ var TodoListView = Falcon.View.extend({
 	initialize: function() 
 	{
     this.todos.fetch(); 
+    console.log(this.todos);
+	}
+
+	// addTodo: function ()
+	// {
+	// 	var todo = new Todo({ text: this.new_todo_text() });
+
+	// 	this.todos.create( todo );
+
+	// 	this.new_todo_text('');
+	// },
+
+	// editTodo: function ( todo )
+	// {
+	// 	todo.set('is_editing', !todo.is_editing());
+	// 	todo.set('text', todo.text());
+	//  todo.set('author', todo.author());
+	// 	todo.save();
+	// },
+
+	// removeTodo: function ( todo )
+	// {
+	// 	this.todos.destroy( todo );
+	// },
+
+	// toggleTodo: function ( todo )
+	// {
+	// 	todo.set('is_complete', 
+	// 		!todo.is_complete());
+	// 	todo.save();
+	// }
+});
+
+/*
+ * connect views via a common layout
+ */
+var LayoutView = Falcon.View.extend({
+	url: 'layout.html',
+	observables: {
+		'currentView': null
 	},
 
-	addTodo: function ()
-	{
-		var todo = new Todo({ text: this.new_todo_text() });
+	initialize: function() {
+		this.showTodosView = function() {
+			var tlv = new TodoListView();
+			tlv.todos.append([{'text': 'first', 'text': 'second'}]);
+			this.currentView(tlv);
+		};
 
-		this.todos.create( todo );
-
-		this.new_todo_text('');
-	},
-
-	editTodo: function ( todo )
-	{
-		todo.set('is_editing', !todo.is_editing());
-		todo.set('text', todo.text());
-		todo.save();
-	},
-
-	removeTodo: function ( todo )
-	{
-		this.todos.destroy( todo );
-	},
-
-	toggleTodo: function ( todo )
-	{
-		todo.set('is_complete', 
-			!todo.is_complete());
-		todo.save();
+		this.showTodosView();
 	}
 });
 
-view = new TodoListView;
-
-Falcon.apply(view, '#application');
-
-view.todos.append([
-	{'text': 'First'},
-	{'text': 'Second'},
-	{'text': 'Third'}
-]);
+Falcon.apply(new LayoutView());
