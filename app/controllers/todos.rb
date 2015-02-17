@@ -27,7 +27,7 @@ Todolist::App.controllers :todos do
 			begin 
 				todo.update(:title => t_json["title"],
 					:is_complete => t_json["is_complete"])
-				true
+				return true
 			rescue => error
 				puts error
 				halt 500
@@ -37,31 +37,10 @@ Todolist::App.controllers :todos do
 		end
 	end
 
-	# # remove a todo
-	# delete :index, :with => :id do
-	# 	todo = Todo[params[:id]
-	# end
-
-
-  # define_method :get_todos do
-		# @todos = Todo.order(:created_at).reverse.all
-
-		# @todo_dates = []
-		# today = DateTime.now
-		# @todos.each do |t|
-		# 	d = t.created_at
-		# 	format = "%m/%e/%y %I:%M%P"
-		# 	if d.mday == today.mday && 
-		# 		d.month == today.month && 
-		# 		d.year == today.year
-		# 		format = "%I:%M%P"
-		# 	end
-		# 	@todo_dates.append(t.created_at.strftime(format))
-		# end
-  # end
-
-  # get :index do
-  # 	get_todos
-		# render 'todos/index'
-  # end
+	# remove a todo
+	delete :index, :with => :id do
+		if !Todo[params[:id]].destroy
+			halt 500
+		end 
+	end
 end

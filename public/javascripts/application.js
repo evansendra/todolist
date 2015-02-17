@@ -18,7 +18,7 @@ var TodoListView = Falcon.View.extend({
 	url: 'todos.html',
 
 	defaults: {
-		'todos': function () { return new Todos; }
+		'todos': function () { return new Todos(); }
 	},
 
 	observables: {
@@ -67,15 +67,15 @@ var TodoListView = Falcon.View.extend({
 		todo.save({attributes: ["title", "is_complete"]});
 	},
 
-	// removeTodo: function ( todo )
-	// {
-	// 	this.todos.destroy( todo );
-	// },
+	removeTodo: function ( todo )
+	{
+		this.todos.destroy(todo);
+		this.todos.remove(todo);
+	},
 
 	toggleTodo: function ( todo )
 	{
-		todo.set('is_complete', 
-			!todo.is_complete());
+		todo.set('is_complete', !todo.is_complete());
 		todo.save({attributes: ["title", "is_complete"]});
 	},
 
