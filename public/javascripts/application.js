@@ -58,26 +58,26 @@ var TodoListView = Falcon.View.extend({
 		{
 			this.error_text('Some words are needed.');
 		}
-	}
+	},
 
-	// editTodo: function ( todo )
-	// {
-	// 	todo.set('is_editing', !todo.is_editing());
-	// 	todo.set('text', todo.text());
-	// 	todo.save();
-	// },
+	editTodo: function ( todo )
+	{
+		todo.set('is_editing', !todo.is_editing());
+		todo.set('title', todo.title());
+		todo.save({attributes: ["title", "is_complete"]});
+	},
 
 	// removeTodo: function ( todo )
 	// {
 	// 	this.todos.destroy( todo );
 	// },
 
-	// toggleTodo: function ( todo )
-	// {
-	// 	todo.set('is_complete', 
-	// 		!todo.is_complete());
-	// 	todo.save();
-	// },
+	toggleTodo: function ( todo )
+	{
+		todo.set('is_complete', 
+			!todo.is_complete());
+		todo.save({attributes: ["title", "is_complete"]});
+	},
 
 });
 

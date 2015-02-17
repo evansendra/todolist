@@ -18,9 +18,24 @@ Todolist::App.controllers :todos do
 		end
 	end
 
-	# # edit a todo
-	# put :index, :with => :id do
-	# end
+	# complete a todo, edit a todo
+	put :index, :with => :id do
+		content_type :json
+		todo = Todo[params[:id]]
+		if todo
+			t_json = JSON.parse(request.body.read)
+			begin 
+				todo.update(:title => t_json["title"],
+					:is_complete => t_json["is_complete"])
+				true
+			rescue => error
+				puts error
+				halt 500
+			end
+		else
+			halt 500
+		end
+	end
 
 	# # remove a todo
 	# delete :index, :with => :id do
@@ -49,29 +64,4 @@ Todolist::App.controllers :todos do
   # 	get_todos
 		# render 'todos/index'
   # end
-
-  post :index do
-  	t = Todo.new({ :author => params[:author], :title => params[:title] })
-  	if t.valid?
-  		t.save
-  	else
-  		@errors = t.errors
-  	end
-  	get_todos
-  	render 'todos/index'
-  end
-
-  get :api, :map => '/api/todo.json' do
-  	content_type :json
-  	todolist = get_todos.map do |t|
-  		{ :id => t.id, :title => t.title, :author => t.author,
-  			:is_completed => t.is_complete, :created_at => t.created_at,
-  			:updated_at => t.updated_at }
-  	end
-
-  	todolist.to_json
-  end
-
-  post :api, :map => '/api/todos' do
-	end
 end

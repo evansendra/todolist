@@ -5,7 +5,7 @@
   <button data-bind="click: $view.addTodo">Add</button>
   <div class="todo-list" data-bind="foreach: $view.todos">
     <div class="todo">
-      <input type="checkbox" data-bind="checked:$view.toggleTodo"/>
+      <input type="checkbox" data-bind="checked: is_complete, event: {change: $view.toggleTodo} "/>
       <span data-bind="css: {'completed': is_complete}">
         <!-- ko if: is_editing -->
         <input data-bind="value: title, event: { change: $view.editTodo }" type="text"></input>
