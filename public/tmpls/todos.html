@@ -8,7 +8,7 @@
       <input type="checkbox" data-bind="checked: is_complete, event: {change: $view.toggleTodo} "/>
       <span data-bind="css: {'completed': is_complete}">
         <!-- ko if: is_editing -->
-        <input data-bind="value: title, event: { change: $view.editTodo }" type="text"></input>
+        <input data-bind="value: tmp_title" type="text"></input>
         <a data-bind="click:$view.editTodo" href="#">[Done]</a>
         <!-- /ko -->
         <!-- ko ifnot: is_editing -->

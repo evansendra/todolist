@@ -5,6 +5,7 @@ var Todo = Falcon.Model.extend({
 
 	observables: {
 		'title': '',
+		'tmp_title': '',
 		'is_complete': false,
 		'is_editing': false
 	}
@@ -32,39 +33,44 @@ var TodoListView = Falcon.View.extend({
 	},
 
 	addTodo: function ()
-	{
+	{		
+		this.error_text('');
 		var title = this.new_todo_text().trim();
-		if (title && title.length > 0
-				&& title.length < 255)
+		try
 		{
-			// ensure not already in list
-			var position = this.todos.indexOf(function(todo) {
-				return todo.get("title") === title; 
-			});
-
-			if (position === -1)
-			{
-				this.error_text('');
-				var todo = new Todo({ title: title });
-				this.todos.create( todo, {attributes: ["title"], fill_options: {method: 'prepend'}});
-				this.new_todo_text('');
-			}
-			else
-			{
-				this.error_text('You haven\'t finished that one yet');
-			}
+			this.validateTitle(title, true);
+			var todo = new Todo({ title: title });
+			this.todos.create( todo, {attributes: ["title"], fill_options: {method: 'prepend'}});
+			this.new_todo_text('');
 		}
-		else
+		catch (err_msg)
 		{
-			this.error_text('Some words are needed.');
+			this.error_text(err_msg);	
 		}
 	},
 
 	editTodo: function ( todo )
 	{
+		this.error_text('');
 		todo.set('is_editing', !todo.is_editing());
-		todo.set('title', todo.title());
-		todo.save({attributes: ["title", "is_complete"]});
+
+		if ( todo.is_editing() )
+		{
+			todo.set('tmp_title', todo.title());
+		}
+		else
+		{
+			try
+			{
+				this.validateTitle(todo.tmp_title(), false);
+				todo.set('title', todo.tmp_title());
+				todo.save({attributes: ["title", "is_complete"]});
+			}
+			catch (err_msg)
+			{
+				this.error_text(err_msg);
+			}
+		}
 	},
 
 	removeTodo: function ( todo )
@@ -78,6 +84,29 @@ var TodoListView = Falcon.View.extend({
 		todo.set('is_complete', !todo.is_complete());
 		todo.save({attributes: ["title", "is_complete"]});
 	},
+
+	validateTitle: function (title, is_new)
+	{
+		if (title && title.length > 0
+				&& title.length < 255)
+		{
+			// ensure not already in list
+			var position = this.todos.indexOf(function(todo) {
+				return todo.get("title") === title; 
+			});
+
+			if (position !== -1 && is_new)
+			{
+				throw "You haven\'t finished that one yet";
+			}
+		}
+		else
+		{
+			throw "Some words are needed.";
+		}
+		
+		return true;
+	}
 
 });
 
