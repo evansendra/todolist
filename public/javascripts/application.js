@@ -81,8 +81,9 @@ var TodoListView = Falcon.View.extend({
 
 	toggleTodo: function ( todo )
 	{
-		todo.set('is_complete', !todo.is_complete());
+		todo.set('is_complete', todo.is_complete());
 		todo.save({attributes: ["title", "is_complete"]});
+		return true;
 	},
 
 	onEnter: function (d, e)
@@ -113,7 +114,7 @@ var TodoListView = Falcon.View.extend({
 		}
 		
 		return true;
-	}
+	},
 
 });
 
