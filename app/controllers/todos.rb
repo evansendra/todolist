@@ -1,5 +1,4 @@
 Todolist::App.controllers :todos do
-
 	# get all todos
 	get :index do
 		content_type :json
