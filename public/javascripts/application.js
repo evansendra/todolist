@@ -85,6 +85,12 @@ var TodoListView = Falcon.View.extend({
 		todo.save({attributes: ["title", "is_complete"]});
 	},
 
+	onEnter: function (d, e)
+	{	
+		if (e.keyCode === 13)
+			this.addTodo();
+	},
+
 	validateTitle: function (title, is_new)
 	{
 		if (title && title.length > 0

@@ -3,8 +3,8 @@
 </div>
 <div id="todos" class="form-inline">
   <div>
-    <input id="add_todo" class="form-control" data-bind="value: $view.new_todo_text" type="text"
-        placeholder="Travel the world and the 7 seas" autofocus/>
+    <input id="add_todo" class="form-control" data-bind="value: $view.new_todo_text, event {keyup:$view.onEnter}" 
+			type="text" placeholder="Travel the world and the 7 seas" autofocus/>
     <button class="btn btn-success" data-bind="click: $view.addTodo">Add</button>
     <div class="todo-list" data-bind="foreach: $view.todos">
       <div class="todo">
