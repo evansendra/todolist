@@ -1,23 +1,32 @@
-<div data-bind="text: $view.error_text" id="errors">
+<h2>What do you <em>really</em> want to do?</h2>
+<div class="bg-danger" data-bind="text: $view.error_text, visible: $view.error_text" id="errors">
 </div>
-<div id="todos">
-  <input data-bind="value: $view.new_todo_text" type="text"/>
-  <button data-bind="click: $view.addTodo">Add</button>
-  <div class="todo-list" data-bind="foreach: $view.todos">
-    <div class="todo">
-      <input type="checkbox" data-bind="checked: is_complete, event: {change: $view.toggleTodo} "/>
-      <span data-bind="css: {'completed': is_complete}">
-        <!-- ko if: is_editing -->
-        <input data-bind="value: tmp_title" type="text"></input>
-        <a data-bind="click:$view.editTodo" href="#">[Done]</a>
-        <!-- /ko -->
-        <!-- ko ifnot: is_editing -->
-        <span data-bind="text: title"></span>
-        <a data-bind="click:$view.editTodo" href="#">[Edit]</a>
-        <!-- /ko -->
-      </span>
+<div id="todos" class="form-inline">
+  <div>
+    <input id="add_todo" class="form-control" data-bind="value: $view.new_todo_text" type="text"
+        placeholder="Travel the world and the 7 seas" autofocus/>
+    <button class="btn btn-success" data-bind="click: $view.addTodo">Add</button>
+    <div class="todo-list" data-bind="foreach: $view.todos">
+      <div class="todo">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" data-bind="checked: is_complete, event: {change: $view.toggleTodo}"/>
+              <!-- ko if: is_editing -->
+              <input class="form-control" data-bind="value: tmp_title" type="text"></input>
+              <a class="btn btn-default btn-sm" data-bind="click:$view.editTodo" href="#" role="button">Done</a>
+              <!-- /ko -->
+              <!-- ko ifnot: is_editing -->
+              <span data-bind="css: {'completed': is_complete}">
+                <span class="todo_title" data-bind="text: title"></span>
+              </span>
+              <span id="separator"></span>
+              <a class="btn btn-default btn-sm" data-bind="click:$view.editTodo" href="#" role="button">Edit</a>
+              <!-- /ko -->
+          </label>
       
-      <a data-bind="click:$view.removeTodo" href="#">[X]</a>
+          <a class="btn btn-danger btn-sm" data-bind="click:$view.removeTodo" href="#">x</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

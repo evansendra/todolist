@@ -1,44 +1,81 @@
-$font-stack: sans;
 /**
  * general page and layout styles
  */
 html 
 {
-	background: url(/images/trees.jpg) no-repeat center center fixed; 
+	background: url(/images/trees_blur.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
 
+$max-width : 920px;
+
 body
 {
-	background: #eee;
-	padding: 10px;
-	width: 920px;
+	max-width: $max-width;
 	margin: 0 auto;
 	text-align: center;
-	font-family: $font-stack;
+	background: transparent;
+	color: #fff;
 }
 
-header, footer
+$bg: 20;
+#container
+{
+	background: rgba($bg, $bg, $bg, 0.85);
+	padding: 10px;
+	margin: 20px auto 50px auto;
+	text-align: center;
+}
+
+header
 {
 	margin: 10px;
 }
 
 footer
 {
+	z-index: -1;
+	position: fixed;
+	bottom: 0;
+	width: $max-width;
+	text-align: center;
+	margin: 0 auto;
+	font-size: 12pt;
+	inner
+	{
+		padding: 30px;
+	}
 	p
 	{
-		color: #dedede;
-		transition: color 1.5s;
+		color: #999;
+		transition: color 1s;
 	}
 	p:hover
 	{
-		color: #aaa;
+		color: #fff;
 	}
 }
 
+#errors
+{
+	max-width: 350px;
+	margin: 0 auto 15px auto;
+	padding: 10px;
+	color: #000;
+}
+
+#add_todo
+{
+	width: 600px;
+}
+
+.form-control
+{
+	color: #222;
+}
 
 .todo-list
 {
@@ -50,18 +87,27 @@ footer
 	padding: 5px;
 }
 
+.todo_title
+{
+	font-size: 13pt;	
+}
+
 .completed
 {
 	text-decoration: line-through;
 }
 
-table
+#separator
 {
-	width: 50%;
-	margin: 0 auto;
+	margin-left: 7px;
 }
 
-.author
+@mixin border-radius ($radius)
 {
-	color: #666;	
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	-ms-border-radius: $radius;
+	border-radius: $radius;
 }
+
+.rounded { @include border-radius(6px); }
