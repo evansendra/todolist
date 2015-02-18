@@ -13,4 +13,4 @@
 
 ## On the Web
 
-[http://dabucketlist.herokuapp.com]
+http://dabucketlist.herokuapp.com
