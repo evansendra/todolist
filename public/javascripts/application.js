@@ -38,7 +38,7 @@ var TodoListView = Falcon.View.extend({
 		var title = this.new_todo_text().trim();
 		try
 		{
-			this.validateTitle(title, true);
+			this.validateTitle(title);
 			var todo = new Todo({ title: title });
 			this.todos.create( todo, {attributes: ["title"], fill_options: {method: 'prepend'}});
 			this.new_todo_text('');
@@ -62,7 +62,7 @@ var TodoListView = Falcon.View.extend({
 		{
 			try
 			{
-				this.validateTitle(todo.tmp_title(), false);
+				this.validateTitle(todo.tmp_title());
 				todo.set('title', todo.tmp_title());
 				todo.save({attributes: ["title", "is_complete"]});
 			}
@@ -91,17 +91,18 @@ var TodoListView = Falcon.View.extend({
 			this.addTodo();
 	},
 
-	validateTitle: function (title, is_new)
+	validateTitle: function (title)
 	{
 		if (title && title.length > 0
 				&& title.length < 255)
 		{
 			// ensure not already in list
 			var position = this.todos.indexOf(function(todo) {
-				return todo.get("title") === title; 
+				return todo.get("title") === title &&
+					todo.tmp_title() !== title; 
 			});
 
-			if (position !== -1 && is_new)
+			if (position !== -1)
 			{
 				throw "You haven\'t finished that one yet";
 			}
